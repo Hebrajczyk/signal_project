@@ -7,7 +7,7 @@ import java.io.IOException;
 class FakeDataReader implements com.data_management.DataReader {
 
     public void read(DataStorage storage) {
-        // zostaw puste jeśli niepotrzebne w tym teście
+
     }
 
     @Override
