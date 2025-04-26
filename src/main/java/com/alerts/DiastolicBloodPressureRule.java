@@ -4,17 +4,16 @@ import com.data_management.Patient;
 import com.data_management.PatientRecord;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
 /**
- * Triggers an alert if there is a rising or falling trend in systolic blood pressure
+ * Triggers an alert if there is a rising or falling trend in diastolic blood pressure
  * across 3 consecutive measurements with at least 10 mmHg difference between each.
  */
-public class BloodPressureTrendRule implements AlertRule {
+public class DiastolicBloodPressureRule implements AlertRule {
 
-    private static final String LABEL = "SystolicBloodPressure";
+    private static final String LABEL = "DiastolicBloodPressure";
     private static final double MIN_STEP = 10.0;
 
     @Override
@@ -29,11 +28,9 @@ public class BloodPressureTrendRule implements AlertRule {
             }
         }
 
-
         bpRecords.sort(Comparator.comparingLong(PatientRecord::getTimestamp));
 
         if (bpRecords.size() < 3) return false;
-
 
         for (int i = 0; i <= bpRecords.size() - 3; i++) {
             double v1 = bpRecords.get(i).getMeasurementValue();
@@ -51,6 +48,6 @@ public class BloodPressureTrendRule implements AlertRule {
 
     @Override
     public String getConditionName() {
-        return "Blood pressure trend (↑ or ↓, step ≥ 10)";
+        return "Diastolic pressure trend (↑ or ↓, step ≥ 10)";
     }
 }
