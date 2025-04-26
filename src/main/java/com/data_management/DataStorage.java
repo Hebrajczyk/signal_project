@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import com.alerts.AlertGenerator;
+import com.alerts.BloodPressureAlertFactory;
 
 /**
  * Manages storage and retrieval of patient data within a healthcare monitoring
@@ -14,6 +15,7 @@ import com.alerts.AlertGenerator;
  */
 public class DataStorage {
     private Map<Integer, Patient> patientMap;
+    private static DataStorage instance;
 
     /**
      * Constructs a new instance of DataStorage, initializing the underlying storage
@@ -21,6 +23,13 @@ public class DataStorage {
      */
     public DataStorage() {
         this.patientMap = new HashMap<>();
+    }
+
+    public static synchronized DataStorage getInstance() {
+        if (instance == null) {
+            instance = new DataStorage();
+        }
+        return instance;
     }
 
     /**
@@ -82,7 +91,7 @@ public class DataStorage {
      * @param args command line arguments
      */
     public static void main(String[] args) {
-        DataStorage storage = new DataStorage();
+        DataStorage storage = DataStorage.getInstance();
 
         List<PatientRecord> records = storage.getRecords(1, 1700000000000L, 1800000000000L);
         for (int i = 0; i < records.size(); i++) {
@@ -93,7 +102,7 @@ public class DataStorage {
                     ", Timestamp: " + record.getTimestamp());
         }
 
-        AlertGenerator alertGenerator = new AlertGenerator(storage);
+        AlertGenerator alertGenerator = new AlertGenerator(storage, new BloodPressureAlertFactory());
 
         List<Patient> patients = storage.getAllPatients();
         for (int i = 0; i < patients.size(); i++) {
@@ -101,4 +110,5 @@ public class DataStorage {
             alertGenerator.evaluateData(patient);
         }
     }
+
 }

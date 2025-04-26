@@ -6,35 +6,37 @@ import java.util.*;
 
 /**
  * The {@code AlertGenerator} class is responsible for monitoring patient data
- * and generating alerts when certain predefined conditions are met. This class
- * relies on a {@link DataStorage} instance to access patient data and evaluate
- * it against specific health criteria.
+ * and generating alerts when certain predefined conditions are met.
+ * It now uses the Factory Method pattern to create alerts dynamically.
  */
 public class AlertGenerator {
     private final DataStorage dataStorage;
     private final AlertManager alertManager;
     private final Map<Integer, List<AlertRule>> patientRules;
+    private final AlertFactory alertFactory;
 
     /**
-     * Constructs an {@code AlertGenerator} with a specified {@code DataStorage}.
+     * Constructs an {@code AlertGenerator} with a specified {@code DataStorage}
+     * and an {@code AlertFactory}.
      *
      * @param dataStorage the data storage system that provides access to patient data
+     * @param alertFactory the factory used to create alert objects
      */
-    public AlertGenerator(DataStorage dataStorage) {
+    public AlertGenerator(DataStorage dataStorage, AlertFactory alertFactory) {
         this.dataStorage = dataStorage;
         this.alertManager = new AlertManager();
         this.patientRules = new HashMap<>();
+        this.alertFactory = alertFactory;
     }
 
     /**
-     * Triggers an alert for the monitoring system. This method can be extended to
-     * notify medical staff, log the alert, or perform other actions.
+     * Triggers an alert for the monitoring system.
      *
      * @param alert the alert object containing details about the alert condition
      */
     private void triggerAlert(Alert alert) {
         // Implementation might involve logging the alert or notifying staff
-        // I implemented AlertManager
+        alertManager.dispatchAlert(alert);
     }
 
     /**
@@ -54,7 +56,7 @@ public class AlertGenerator {
 
     /**
      * Evaluates the specified patient's data to determine if any alert conditions
-     * are met. If a condition is met, an alert is triggered via the alert manager.
+     * are met.
      *
      * @param patient the patient data to evaluate for alert conditions
      */
@@ -69,8 +71,12 @@ public class AlertGenerator {
         for (int i = 0; i < rules.size(); i++) {
             AlertRule rule = rules.get(i);
             if (rule.check(patient)) {
-                Alert alert = new Alert(String.valueOf(id), rule.getConditionName(), System.currentTimeMillis());
-                alertManager.dispatchAlert(alert);
+                Alert alert = alertFactory.createAlert(
+                        String.valueOf(id),
+                        rule.getConditionName(),
+                        System.currentTimeMillis()
+                );
+                triggerAlert(alert);
             }
         }
     }
