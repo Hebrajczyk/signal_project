@@ -1,7 +1,7 @@
 package com.alerts;
 
 /**
- * Base class for alert decorators.
+ * Base class for alert decorators
  */
 public abstract class AlertDecorator implements AlertInterface {
     protected final AlertInterface decoratedAlert;

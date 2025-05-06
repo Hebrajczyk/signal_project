@@ -7,7 +7,7 @@ import java.io.IOException;
 class FakeDataReader implements com.data_management.DataReader {
 
     @Override
-    public void readData(DataStorage storage) throws IOException {
+    public void readData(DataStorage storage){
         long now = System.currentTimeMillis();
         storage.addPatientData(1, 110.0, "SystolicBloodPressure", now);
         storage.addPatientData(1, 120.0, "SystolicBloodPressure", now + 1000);
@@ -16,8 +16,10 @@ class FakeDataReader implements com.data_management.DataReader {
     }
 
 
+    @Override
+    public void startStreaming(DataStorage storage) {
 
-
+    }
 
 }
 

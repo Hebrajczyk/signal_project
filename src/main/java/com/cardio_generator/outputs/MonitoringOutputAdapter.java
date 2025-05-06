@@ -33,7 +33,7 @@ public class MonitoringOutputAdapter implements OutputStrategy {
         }
     }
 
-    // Helper method: allows support for "triggered", "resolved" as well as numeric
+    // Helper methot, allows support for "triggered", "resolved" and numeric
     private double parseDouble(String input) {
         switch (input.trim().toLowerCase()) {
             case "triggered":

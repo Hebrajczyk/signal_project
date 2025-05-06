@@ -3,7 +3,7 @@ package com.alerts;
 import com.data_management.Patient;
 
 /**
- * DiastolicBloodPressureRule now uses a strategy to check the alert condition.
+ * DiastolicBloodPressureRule now uses a strategy to check the alert condition
  */
 public class DiastolicBloodPressureRule implements AlertRule {
     private final AlertStrategy strategy;

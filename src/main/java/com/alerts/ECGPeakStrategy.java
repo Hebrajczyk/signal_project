@@ -5,7 +5,7 @@ import com.data_management.PatientRecord;
 import java.util.List;
 
 /**
- * Strategy for detecting ECG peaks based on recent measurements.
+ * Strategy for detecting ECG peaks based on recent measurements
  */
 public class ECGPeakStrategy implements AlertStrategy {
 

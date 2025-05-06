@@ -1,7 +1,7 @@
 package com.alerts;
 
 /**
- * Factory for creating blood pressure alerts.
+ * Factory for creating blood pressure alerts
  */
 public class BloodPressureAlertFactory extends AlertFactory {
 

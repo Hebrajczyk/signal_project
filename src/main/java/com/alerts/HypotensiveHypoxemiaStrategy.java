@@ -5,7 +5,7 @@ import com.data_management.PatientRecord;
 import java.util.List;
 
 /**
- * Strategy for detecting low blood pressure and low oxygen saturation together.
+ * Strategy for detecting low blood pressure and low oxygen saturation together
  */
 public class HypotensiveHypoxemiaStrategy implements AlertStrategy {
 

@@ -111,4 +111,9 @@ public class DataStorage {
         }
     }
 
+    public void clearData() {
+        patientMap.clear();
+    }
+
+
 }

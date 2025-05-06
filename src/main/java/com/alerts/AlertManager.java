@@ -2,13 +2,13 @@ package com.alerts;
 
 /**
  * Handles triggered alerts.
- * Responsible for logging, dispatching, or escalating alerts in the system.
+ * Responsible for logging, dispatching, or escalating alerts
  */
 public class AlertManager {
 
     /**
      * Dispatches an alert.
-     * Currently, it logs the alert to the console.
+     * Currently, it logs the alert to the console
      *
      * @param alert the alert to dispatch
      */
@@ -19,4 +19,7 @@ public class AlertManager {
                         " | Timestamp: " + alert.getTimestamp()
         );
     }
+
+
+
 }

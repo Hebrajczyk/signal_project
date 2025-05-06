@@ -1,7 +1,7 @@
 package com.alerts;
 
 /**
- * Factory for creating blood oxygen alerts.
+ * Factory for creating blood oxygen alerts
  */
 public class BloodOxygenAlertFactory extends AlertFactory {
 

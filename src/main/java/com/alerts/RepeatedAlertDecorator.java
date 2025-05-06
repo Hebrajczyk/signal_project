@@ -1,7 +1,7 @@
 package com.alerts;
 
 /**
- * Decorator that marks an alert as repeated.
+ * Decorator that marks an alert as repeated
  */
 public class RepeatedAlertDecorator extends AlertDecorator {
 

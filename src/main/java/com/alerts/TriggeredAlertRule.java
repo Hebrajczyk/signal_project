@@ -6,7 +6,7 @@ import com.data_management.PatientRecord;
 import java.util.List;
 
 /**
- * Triggers an alert if the most recent manual "Alert" record has value "triggered".
+ * Triggers an alert if the most recent Alert record has value "triggered"
  */
 public class TriggeredAlertRule implements AlertRule {
 

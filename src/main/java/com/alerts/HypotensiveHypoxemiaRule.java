@@ -3,7 +3,7 @@ package com.alerts;
 import com.data_management.Patient;
 
 /**
- * HypotensiveHypoxemiaRule now uses a strategy to check the alert condition.
+ * HypotensiveHypoxemiaRule now uses a strategy to check the alert condition
  */
 public class HypotensiveHypoxemiaRule implements AlertRule {
     private final AlertStrategy strategy;

@@ -3,7 +3,7 @@ package com.alerts;
 import com.data_management.Patient;
 
 /**
- * SaturationDropRule now uses a strategy to check the alert condition.
+ * SaturationDropRule now uses a strategy to check the alert condition
  */
 public class SaturationDropRule implements AlertRule {
     private final AlertStrategy strategy;

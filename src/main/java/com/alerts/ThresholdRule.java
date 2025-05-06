@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * Triggers an alert if the latest measurement of a specific type
- * is above or below a defined threshold.
+ * is above or below a defined threshold
  */
 public class ThresholdRule implements AlertRule {
     private AlertStrategy strategy;

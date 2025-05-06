@@ -1,7 +1,7 @@
 package com.alerts;
 
 /**
- * Abstract factory for creating Alert objects.
+ * Abstract factory for creating Alert objects
  */
 public abstract class AlertFactory {
 

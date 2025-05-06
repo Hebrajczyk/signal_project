@@ -3,7 +3,7 @@ package com.alerts;
 import com.data_management.Patient;
 
 /**
- * ECGPeakRule now uses a strategy to check the alert condition.
+ * ECGPeakRule now uses a strategy to check the alert condition
  */
 public class ECGPeakRule implements AlertRule {
     private final AlertStrategy strategy;

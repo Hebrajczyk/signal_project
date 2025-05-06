@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 /**
- * Strategy for detecting a trend in systolic blood pressure readings.
+ * Strategy for detecting a trend in systolic blood pressure readings
  */
 public class SystolicBloodPressureStrategy implements AlertStrategy {
 

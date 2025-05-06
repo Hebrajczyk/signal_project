@@ -11,13 +11,13 @@ import java.util.*;
  */
 public class AlertGenerator {
     private final DataStorage dataStorage;
-    private final AlertManager alertManager;
+    private AlertManager alertManager;
     private final Map<Integer, List<AlertRule>> patientRules;
     private final AlertFactory alertFactory;
 
     /**
      * Constructs an {@code AlertGenerator} with a specified {@code DataStorage}
-     * and an {@code AlertFactory}.
+     * and an {@code AlertFactory}
      *
      * @param dataStorage the data storage system that provides access to patient data
      * @param alertFactory the factory used to create alert objects
@@ -30,7 +30,7 @@ public class AlertGenerator {
     }
 
     /**
-     * Triggers an alert for the monitoring system.
+     * Triggers an alert for the monitoring system
      *
      * @param alert the alert object containing details about the alert condition
      */
@@ -80,4 +80,9 @@ public class AlertGenerator {
             }
         }
     }
+
+    public void setAlertManager(AlertManager manager) {
+        this.alertManager = manager;
+    }
+
 }
