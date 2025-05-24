@@ -3,9 +3,9 @@ package data_management;
 import com.data_management.DataStorage;
 import com.data_management.WebSocketDataReader;
 import org.junit.jupiter.api.*;
-import org.java_websocket.server.WebSocketServer;
 import org.java_websocket.WebSocket;
 import org.java_websocket.handshake.ClientHandshake;
+import org.java_websocket.server.WebSocketServer;
 
 import java.net.InetSocketAddress;
 
@@ -21,10 +21,21 @@ public class WebSocketDataReaderTest {
     public static void startMockServer() {
         mockServer = new WebSocketServer(new InetSocketAddress(PORT)) {
             @Override
-            public void onOpen(WebSocket conn, ClientHandshake handshake) {
+            public void onOpen(final WebSocket conn, final ClientHandshake handshake) {
                 System.out.println("[Server] Client connected");
 
-                conn.send("10|HeartRate|99.9|1234567890000");
+                Thread sender = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            Thread.sleep(500);
+                            conn.send("10|HeartRate|99.9|1234567890000");
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+                sender.start();
             }
 
             @Override
@@ -34,7 +45,7 @@ public class WebSocketDataReaderTest {
 
             @Override
             public void onMessage(WebSocket conn, String message) {
-
+                // No action needed for this test
             }
 
             @Override
@@ -66,11 +77,12 @@ public class WebSocketDataReaderTest {
         WebSocketDataReader reader = new WebSocketDataReader("ws://localhost:" + PORT);
         reader.startStreaming(storage);
 
+        Thread.sleep(2000);
 
-        Thread.sleep(1000);
+        assertEquals(1, storage.getAllPatients().size(), "Should have one patient stored");
+        assertEquals(1, storage.getRecords(10, 0, Long.MAX_VALUE).size(), "Should have one record stored");
 
-        assertEquals(1, storage.getAllPatients().size());
-        assertEquals(1, storage.getRecords(10, 0, Long.MAX_VALUE).size());
-        assertEquals(99.9, storage.getRecords(10, 0, Long.MAX_VALUE).get(0).getMeasurementValue());
+        double value = storage.getRecords(10, 0, Long.MAX_VALUE).get(0).getMeasurementValue();
+        assertEquals(99.9, value, 0.01, "Heart rate should match expected value");
     }
 }

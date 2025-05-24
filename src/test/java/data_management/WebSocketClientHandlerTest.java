@@ -19,22 +19,19 @@ public class WebSocketClientHandlerTest {
     @BeforeEach
     public void setup() throws URISyntaxException {
         storage = DataStorage.getInstance();
+        storage.clearData(); // ✅ kluczowe, żeby testy się nie zanieczyszczały
         client = new WebSocketClientHandler("ws://localhost:8080", storage);
     }
 
     @Test
     public void testValidMessageParsesAndStoresCorrectly() {
-        // If
         String validMessage = "1|HeartRate|88.5|" + System.currentTimeMillis();
-
-        // When
         client.onMessage(validMessage);
 
-        // Then
         List<PatientRecord> records = storage.getRecords(1, 0, System.currentTimeMillis());
         assertFalse(records.isEmpty(), "Expected records for patient 1");
-        PatientRecord record = records.get(records.size() - 1);
 
+        PatientRecord record = records.get(records.size() - 1);
         assertEquals(1, record.getPatientId());
         assertEquals("HeartRate", record.getRecordType());
         assertEquals(88.5, record.getMeasurementValue(), 0.001);
@@ -42,27 +39,19 @@ public class WebSocketClientHandlerTest {
 
     @Test
     public void testInvalidFormatIsHandledGracefully() {
-        // If
         String invalidMessage = "1|HeartRate|BAD_NUMBER|TIME";
-
-        // When
         client.onMessage(invalidMessage);
 
-        // Then
         List<PatientRecord> records = storage.getRecords(1, 0, System.currentTimeMillis());
-        assertTrue(records.isEmpty(), "No record should be stored for invalid message");
+        assertEquals(0, records.size(), "No record should be stored for invalid message");
     }
 
     @Test
     public void testIncorrectPartsCount() {
-        // If
         String badParts = "1|Only|Three";
-
-        // When
         client.onMessage(badParts);
 
-        // Then
         List<PatientRecord> records = storage.getRecords(1, 0, System.currentTimeMillis());
-        assertTrue(records.isEmpty(), "No record should be stored for invalid part count");
+        assertEquals(0, records.size(), "No record should be stored for invalid part count");
     }
 }

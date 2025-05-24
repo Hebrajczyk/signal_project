@@ -39,7 +39,7 @@ public class WebSocketWholeTest {
         AlertManager mockAlertManager = new AlertManager() {
             @Override
             public void dispatchAlert(Alert alert) {
-                System.out.println("✅ ALERT TRIGGERED: " + alert.getCondition());
+                System.out.println("ALERT TRIGGERED: " + alert.getCondition());
                 assertEquals("High Heart Rate", alert.getCondition());
                 assertEquals("1", alert.getPatientId());
             }
