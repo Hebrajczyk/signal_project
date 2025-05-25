@@ -17,7 +17,7 @@ class FakeDataReader implements com.data_management.DataReader {
 
 
     @Override
-    public void startStreaming(DataStorage storage) {
+    public void streaming(DataStorage storage) {
 
     }
 

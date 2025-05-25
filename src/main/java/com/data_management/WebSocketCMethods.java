@@ -3,34 +3,33 @@ package com.data_management;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
 
 /**
  * WebSocket client handler that receives real time data and stores it
  */
-public class WebSocketClientHandler extends WebSocketClient {
+public class WebSocketCMethods extends org.java_websocket.client.WebSocketClient {
 
     private final DataStorage storage;
 
-    public WebSocketClientHandler(String serverUri, DataStorage storage) throws URISyntaxException {
+    public WebSocketCMethods(String serverUri, DataStorage storage) throws URISyntaxException {
         super(new URI(serverUri));
         this.storage = storage;
     }
 
     @Override
     public void onOpen(ServerHandshake handshake) {
-        System.out.println("[Client] Connected to server");
+        System.out.println("Connected to server");
     }
 
     @Override
     public void onMessage(String message) {
-        System.out.println("[Client] Received: " + message);
+        System.out.println("Received: " + message);
 
 
         String[] parts = message.split("\\|");
         if (parts.length != 4) {
-            System.err.println("[Client] Invalid message format: " + message);
+            System.err.println("Invalid message format: " + message);
             return;
         }
 
@@ -43,17 +42,17 @@ public class WebSocketClientHandler extends WebSocketClient {
             storage.addPatientData(patientId, value, type, timestamp);
 
         } catch (NumberFormatException e) {
-            System.err.println("[Client] Error parsing message: " + e.getMessage());
+            System.err.println("Error parsing message: " + e.getMessage());
         }
     }
 
     @Override
     public void onClose(int code, String reason, boolean remote) {
-        System.out.println("[Client] Connection closed: " + reason);
+        System.out.println("Connection closed: " + reason);
     }
 
     @Override
     public void onError(Exception ex) {
-        System.err.println("[Client] Error: " + ex.getMessage());
+        System.err.println("Error: " + ex.getMessage());
     }
 }

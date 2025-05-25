@@ -26,7 +26,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
-import com.data_management.WebSocketDataReader;
+import com.data_management.WebSocketConnection;
 
 
 public class HealthDataSimulator {
@@ -46,8 +46,8 @@ public class HealthDataSimulator {
 
         storage = DataStorage.getInstance();
         String websocketUrl = "ws://localhost:8080";
-        WebSocketDataReader reader = new WebSocketDataReader(websocketUrl);
-        reader.startStreaming(storage);
+        WebSocketConnection reader = new WebSocketConnection(websocketUrl);
+        reader.streaming(storage);
 
 
         scheduler = Executors.newScheduledThreadPool(patientCount * 4);

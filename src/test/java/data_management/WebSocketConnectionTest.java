@@ -1,7 +1,7 @@
 package data_management;
 
 import com.data_management.DataStorage;
-import com.data_management.WebSocketDataReader;
+import com.data_management.WebSocketConnection;
 import org.junit.jupiter.api.*;
 import org.java_websocket.WebSocket;
 import org.java_websocket.handshake.ClientHandshake;
@@ -11,7 +11,7 @@ import java.net.InetSocketAddress;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class WebSocketDataReaderTest {
+public class WebSocketConnectionTest {
 
     private static final int PORT = 8090;
     private static WebSocketServer mockServer;
@@ -22,7 +22,7 @@ public class WebSocketDataReaderTest {
         mockServer = new WebSocketServer(new InetSocketAddress(PORT)) {
             @Override
             public void onOpen(final WebSocket conn, final ClientHandshake handshake) {
-                System.out.println("[Server] Client connected");
+                System.out.println("Client connected");
 
                 Thread sender = new Thread(new Runnable() {
                     @Override
@@ -40,7 +40,7 @@ public class WebSocketDataReaderTest {
 
             @Override
             public void onClose(WebSocket conn, int code, String reason, boolean remote) {
-                System.out.println("[Server] Connection closed");
+                System.out.println("Connection closed");
             }
 
             @Override
@@ -50,12 +50,12 @@ public class WebSocketDataReaderTest {
 
             @Override
             public void onError(WebSocket conn, Exception ex) {
-                System.err.println("[Server] Error: " + ex.getMessage());
+                System.err.println("Error: " + ex.getMessage());
             }
 
             @Override
             public void onStart() {
-                System.out.println("[Server] Mock server started on port " + PORT);
+                System.out.println("Mock server started on port " + PORT);
             }
         };
         mockServer.start();
@@ -74,12 +74,12 @@ public class WebSocketDataReaderTest {
 
     @Test
     public void testWebSocketDataReaderIntegration() throws InterruptedException {
-        WebSocketDataReader reader = new WebSocketDataReader("ws://localhost:" + PORT);
-        reader.startStreaming(storage);
+        WebSocketConnection reader = new WebSocketConnection("ws://localhost:" + PORT);
+        reader.streaming(storage);
 
         Thread.sleep(2000);
 
-        assertEquals(1, storage.getAllPatients().size(), "Should have one patient stored");
+        assertEquals(1, storage.getAllPatients().size(), "Just one patient stored");
         assertEquals(1, storage.getRecords(10, 0, Long.MAX_VALUE).size(), "Should have one record stored");
 
         double value = storage.getRecords(10, 0, Long.MAX_VALUE).get(0).getMeasurementValue();

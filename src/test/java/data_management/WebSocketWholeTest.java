@@ -54,8 +54,8 @@ public class WebSocketWholeTest {
         server.start();
 
 
-        WebSocketDataReader reader = new WebSocketDataReader("ws://localhost:" + port);
-        reader.startStreaming(storage);
+        WebSocketConnection reader = new WebSocketConnection("ws://localhost:" + port);
+        reader.streaming(storage);
 
         Thread.sleep(3000);
 

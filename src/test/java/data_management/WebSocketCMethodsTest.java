@@ -2,7 +2,7 @@ package data_management;
 
 import com.data_management.DataStorage;
 import com.data_management.PatientRecord;
-import com.data_management.WebSocketClientHandler;
+import com.data_management.WebSocketCMethods;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -11,20 +11,20 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class WebSocketClientHandlerTest {
+public class WebSocketCMethodsTest {
 
-    private WebSocketClientHandler client;
+    private WebSocketCMethods client;
     private DataStorage storage;
 
     @BeforeEach
     public void setup() throws URISyntaxException {
         storage = DataStorage.getInstance();
         storage.clearData();
-        client = new WebSocketClientHandler("ws://localhost:8080", storage);
+        client = new WebSocketCMethods("ws://localhost:8080", storage);
     }
 
     @Test
-    public void testValidMessageParsesAndStoresCorrectly() {
+    public void testValidMessageParses() {
         String validMessage = "1|HeartRate|88.5|" + System.currentTimeMillis();
         client.onMessage(validMessage);
 
@@ -38,7 +38,7 @@ public class WebSocketClientHandlerTest {
     }
 
     @Test
-    public void testInvalidFormatIsHandledGracefully() {
+    public void testInvalidFormat() {
         String invalidMessage = "1|HeartRate|INVALID MESSAGE|TIME";
         client.onMessage(invalidMessage);
 
@@ -47,7 +47,7 @@ public class WebSocketClientHandlerTest {
     }
 
     @Test
-    public void testIncorrectPartsCount() {
+    public void testIncorrectParts() {
         String badParts = "1|Only|Three";
         client.onMessage(badParts);
 

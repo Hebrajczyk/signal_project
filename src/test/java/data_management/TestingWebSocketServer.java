@@ -22,7 +22,7 @@ public class TestingWebSocketServer extends WebSocketServer {
 
     @Override
     public void onOpen(final WebSocket conn, ClientHandshake handshake) {
-        System.out.println("[Server] Client connected");
+        System.out.println("Client connected");
 
         ExecutorService executor = Executors.newSingleThreadExecutor();
         executor.submit(new Runnable() {
@@ -41,21 +41,21 @@ public class TestingWebSocketServer extends WebSocketServer {
 
     @Override
     public void onClose(WebSocket conn, int code, String reason, boolean remote) {
-        System.out.println("[Server] Connection closed: " + reason);
+        System.out.println("Connection closed: " + reason);
     }
 
     @Override
     public void onMessage(WebSocket conn, String message) {
-        System.out.println("[Server] Received message: " + message);
+        System.out.println("Received message: " + message);
     }
 
     @Override
     public void onError(WebSocket conn, Exception ex) {
-        System.out.println("[Server] Error: " + ex.getMessage());
+        System.out.println("Error: " + ex.getMessage());
     }
 
     @Override
     public void onStart() {
-        System.out.println("[Server] Started on port " + getPort());
+        System.out.println("Started on port " + getPort());
     }
 }

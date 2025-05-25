@@ -6,22 +6,22 @@ import java.net.URISyntaxException;
  * Connects to a WebSocket server and continuously receives and stores data.
  * Implements the DataReader interface for real time WebSocket integration.
  */
-public class WebSocketDataReader implements DataReader {
+public class WebSocketConnection implements DataReader {
 
     private final String serverUri;
-    private WebSocketClientHandler client;
+    private WebSocketCMethods client;
 
-    public WebSocketDataReader(String serverUri) {
+    public WebSocketConnection(String serverUri) {
         this.serverUri = serverUri;
     }
 
     @Override
-    public void startStreaming(DataStorage storage) {
+    public void streaming(DataStorage storage) {
         try {
-            client = new WebSocketClientHandler(serverUri, storage);
+            client = new WebSocketCMethods(serverUri, storage);
             client.connect();
         } catch (URISyntaxException e) {
-            System.err.println("Invalid WebSocket URI: " + e.getMessage());
+            System.err.println("Wrong URI: " + e.getMessage());
         }
     }
 
