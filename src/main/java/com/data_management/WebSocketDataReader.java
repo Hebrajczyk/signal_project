@@ -4,7 +4,7 @@ import java.net.URISyntaxException;
 
 /**
  * Connects to a WebSocket server and continuously receives and stores data.
- * Implements the DataReader interface for real-time WebSocket integration.
+ * Implements the DataReader interface for real time WebSocket integration.
  */
 public class WebSocketDataReader implements DataReader {
 
@@ -25,6 +25,7 @@ public class WebSocketDataReader implements DataReader {
         }
     }
 
+    //Neglects interface segregation rule but adding a new inteface would change complexity which is already high
     @Override
     public void readData(DataStorage storage) {
 

@@ -19,7 +19,7 @@ public class WebSocketClientHandlerTest {
     @BeforeEach
     public void setup() throws URISyntaxException {
         storage = DataStorage.getInstance();
-        storage.clearData(); // ✅ kluczowe, żeby testy się nie zanieczyszczały
+        storage.clearData();
         client = new WebSocketClientHandler("ws://localhost:8080", storage);
     }
 
@@ -39,7 +39,7 @@ public class WebSocketClientHandlerTest {
 
     @Test
     public void testInvalidFormatIsHandledGracefully() {
-        String invalidMessage = "1|HeartRate|BAD_NUMBER|TIME";
+        String invalidMessage = "1|HeartRate|INVALID MESSAGE|TIME";
         client.onMessage(invalidMessage);
 
         List<PatientRecord> records = storage.getRecords(1, 0, System.currentTimeMillis());

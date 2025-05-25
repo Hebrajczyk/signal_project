@@ -7,7 +7,7 @@ import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
 
 /**
- * WebSocket client handler that receives real-time data and stores it.
+ * WebSocket client handler that receives real time data and stores it
  */
 public class WebSocketClientHandler extends WebSocketClient {
 
@@ -19,8 +19,8 @@ public class WebSocketClientHandler extends WebSocketClient {
     }
 
     @Override
-    public void onOpen(ServerHandshake handshakedata) {
-        System.out.println("[Client] Connected to WebSocket server");
+    public void onOpen(ServerHandshake handshake) {
+        System.out.println("[Client] Connected to server");
     }
 
     @Override
